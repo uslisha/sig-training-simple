@@ -1,52 +1,37 @@
 package eu.sig.training.ch03;
 
 import java.awt.Color;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FlagFactory {
+	
+	private static final Map<Nationality, FlagInterface> FLAGS = 
+			new HashMap<Nationality, FlagInterface>();
+	
+	
+	static {
+		FLAGS.put(FlagConstant.Constant.DUTCH, new DutchFlag());
+		FLAGS.put(FlagConstant.Constant.GERMAN, new GermanFlag());
+		FLAGS.put(FlagConstant.Constant.BELGIAN, new BelgianFlag());
+		FLAGS.put(FlagConstant.Constant.FRENCH, new FrenchFlag());
+		FLAGS.put(FlagConstant.Constant.ITALIAN, new ItalianFlag());
+		FLAGS.put(FlagConstant.Constant.ROMANIA, new RomaniaFlag());
+		FLAGS.put(FlagConstant.Constant.IRELAND, new IrelandFlag());
+		FLAGS.put(FlagConstant.Constant.HUNGARIAN, new HungarianFlag());
+		FLAGS.put(FlagConstant.Constant.BULGARIAN, new BulgarianFlag());
+		FLAGS.put(FlagConstant.Constant.RUSSIA, new RussiaFlag());
+		FLAGS.put(FlagConstant.Constant.UNCLASSIFIED, new Unclassified());
+	}
 
     // tag::getFlag[]
-    public List<Color> getFlagColors(Nationality nationality) {
-        List<Color> result;
-        switch (nationality) {
-        case DUTCH:
-            result = Arrays.asList(Color.RED, Color.WHITE, Color.BLUE);
-            break;
-        case GERMAN:
-            result = Arrays.asList(Color.BLACK, Color.RED, Color.YELLOW);
-            break;
-        case BELGIAN:
-            result = Arrays.asList(Color.BLACK, Color.YELLOW, Color.RED);
-            break;
-        case FRENCH:
-            result = Arrays.asList(Color.BLUE, Color.WHITE, Color.RED);
-            break;
-        case ITALIAN:
-            result = Arrays.asList(Color.GREEN, Color.WHITE, Color.RED);
-            break;
-        case ROMANIA:
-            result = Arrays.asList(Color.BLUE, Color.YELLOW, Color.RED);
-            break;
-        case IRELAND:
-            result = Arrays.asList(Color.GREEN, Color.WHITE, Color.ORANGE);
-            break;
-        case HUNGARIAN:
-            result = Arrays.asList(Color.RED, Color.WHITE, Color.GREEN);
-            break;
-        case BULGARIAN:
-            result = Arrays.asList(Color.WHITE, Color.GREEN, Color.RED);
-            break;
-        case RUSSIA:
-            result = Arrays.asList(Color.WHITE, Color.BLUE, Color.RED);
-            break;
-        case UNCLASSIFIED:
-        default:
-            result = Arrays.asList(Color.GRAY);
-            break;
-        }
-        return result;
+    
+       public List<Color> getFlagColors(Nationality nationality){
+       
+    	   FlagInterface flag = FLAGS.get(nationality);
+    	   flag = flag != null ? flag : new Unclassified();
+    	   return flag.getColors();
+       }
+       
     }
-    // end::getFlag[]
-
-}
