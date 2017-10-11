@@ -24,9 +24,7 @@ public class FlagFactory {
 		FLAGS.put(FlagConstant.Constant.RUSSIA, new RussiaFlag());
 		FLAGS.put(FlagConstant.Constant.UNCLASSIFIED, new Unclassified());
 	}
-
-    // tag::getFlag[]
-    
+ 
        public List<Color> getFlagColors(Nationality nationality){
        
     	   FlagInterface flag = FLAGS.get(nationality);
